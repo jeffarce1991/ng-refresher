@@ -1,1 +1,1 @@
-# angular-refresher
+# ng-refresher
