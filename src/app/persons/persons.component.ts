@@ -9,6 +9,7 @@ import { PersonsService } from './persons.service';
 
 export class PersonsComponent implements OnInit, OnDestroy {
   personList: string[];
+  isFetching = false;
   private subscription: Subscription;
 
   //private personsService: PersonsService
@@ -19,10 +20,12 @@ export class PersonsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.personList = this.personsService.persons;
     this.subscription = this.personsService.personsChanged.subscribe(persons => {
       this.personList = persons;
+      this.isFetching = false;
     });
+    this.isFetching = true;
+    this.personsService.fetchPerson();
   }
 
   onRemovePerson(name: string) {
